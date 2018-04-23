@@ -8,8 +8,10 @@ var Enemy = function(xValue, yValue) {
   // The image/sprite for our enemies, this uses
   // a helper we've provided to easily load images
   this.sprite = "images/enemy-bug.png";
+  // The enemies should be initilized with a value sent by the constructor.
   this.x = xValue;
   this.y = yValue;
+  // The arbitraty number is related to a number which will be multiplied to implement the moviment and velocity.
   this.arbitratyNumber = 150;
 };
 
@@ -20,16 +22,27 @@ Enemy.prototype.update = function(dt) {
   // which will ensure the game runs at the same speed for
   // all computers.
   if (this.x >= ctx.canvas.clientWidth) {
-    getClean.call(this);
+    getEnemyClean.call(this);
   }
 
+  //I'm checking if the bug is in a defined collision raius.
+  if (player.x <= (Math.round(this.x) + 75) && player.x >= (Math.round(this.x) - 50)  && this.y == player.y) {
+    getPlayerClean();
+  }
+
+  //Updating the X.
   this.x += this.arbitratyNumber * dt;
 };
 
-function getClean() {
+function getEnemyClean() {
   this.x = -90;
   //so I get a random value between the max and min value.
   this.arbitratyNumber = Math.random() * (400 - 100) + 100;
+}
+
+function getPlayerClean() {
+  player.x = 200;
+  player.y = 380;
 }
 
 // Draw the enemy on the screen, required method for game
@@ -66,18 +79,28 @@ Player.prototype.handleInput = function(key) {
   if (key == "left" && player.x > 0) {
     player.x -= 100;
   }
+
+  if (player.y == -20) {
+    getPlayerClean();
+  }
 };
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-enemy1 = new Enemy(0, 60);
-enemy2 = new Enemy(0, 140);
-enemy3 = new Enemy(0, 220);
+enemy1 = new Enemy(100, 60);
+enemy2 = new Enemy(-20, 60);
+enemy3 = new Enemy(0, 140);
+enemy4 = new Enemy(-120, 140);
+enemy5 = new Enemy(-100, 220);
+enemy6 = new Enemy(200, 220);
 allEnemies.push(enemy1);
 allEnemies.push(enemy2);
 allEnemies.push(enemy3);
+allEnemies.push(enemy4);
+allEnemies.push(enemy5);
+allEnemies.push(enemy6);
 
 player = new Player(200, 380);
 
