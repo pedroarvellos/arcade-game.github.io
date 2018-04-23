@@ -66,6 +66,7 @@ Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+// This function is responsible to change the position to be rendered according to the key pressed. It also validates before changing.
 Player.prototype.handleInput = function(key) {
   if (key == "up" && player.y > 0) {
     player.y -= 80;
