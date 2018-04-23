@@ -1,6 +1,23 @@
-frontend-nanodegree-arcade-game
-===============================
+# arcade-game.github.io
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+Arcade Game is a project developed by me during the Advanced Front-End Nano Degree course provided by Udacity. This project demonstrates good practices at HTML 5 Canvas and JavaScript. The pure concept of the "this" context, closures and prototype is nicely demonstrated in this project. 
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+Access the Arcade Game: https://pedroarvellos.github.io/arcade-game.github.io/
+
+## How to use
+
+Download the project directly or go to a specific folder and download it by git:
+
+`git init` 
+
+`git clone https://github.com/pedroarvellos/arcade-game.github.io.git`
+
+The project can be opened in any text editor, for example: _Sublime Text_, _Visual Studio_,  _Atom_, etc. To execute the game, it can be opened the index.html file on the browser.
+
+## How to play
+
+This is a simple arcade game, and to complete it, just take a look at the points:
+
+- The enemies are the many bugs which walk along the streets.
+- The goal of the character is to cross to the lake.
+- If the bug touches you, you start from the scratch.
