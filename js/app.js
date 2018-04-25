@@ -1,88 +1,89 @@
 // Enemies our player must avoid
 let allEnemies = [];
 
-var Enemy = function(xValue, yValue) {
-  // Variables applied to each of our instances go here,
-  // we've provided one for you to get started
-
-  // The image/sprite for our enemies, this uses
-  // a helper we've provided to easily load images
-  this.sprite = "images/enemy-bug.png";
-  // The enemies should be initilized with a value sent by the constructor.
+// This is the Father Class.
+var Character = function(xValue, yValue, image) {
+  this.sprite = image;
   this.x = xValue;
   this.y = yValue;
+}
+
+Character.prototype.render = function() {
+  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+}
+
+// Enemy class, son of Character.
+var Enemy = function(xValue, yValue) {
+
+  //By Inheritance, I'm using the Father constructor to initialize the values.
+  Character.call(this, xValue, yValue, 'images/enemy-bug.png');
+
   // The arbitraty number is related to a number which will be multiplied to implement the moviment and velocity.
   this.arbitratyNumber = 150;
 };
+//Here, I'm linking Enemy to his Father Character (same of extends in ES6);
+Enemy.prototype = Object.create(Character.prototype);
+//Here, I'm linking the Enemy's constructor with the very Enemy, this way his methods can be accessed.
+Enemy.prototype.constructor = Enemy;
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+// Update the enemy's position.
+// Parameter: dt, a time delta.
 Enemy.prototype.update = function(dt) {
-  // You should multiply any movement by the dt parameter
-  // which will ensure the game runs at the same speed for
-  // all computers.
   if (this.x >= ctx.canvas.clientWidth) {
     getEnemyClean.call(this);
   }
 
-  //I'm checking if the bug is in a defined collision raius.
-  if (player.x <= (Math.round(this.x) + 75) && player.x >= (Math.round(this.x) - 50)  && this.y == player.y) {
-    getPlayerClean();
-  }
-
+  // You should multiply any movement by the dt parameter
+  // which will ensure the game runs at the same speed for
+  // all computers.
   //Updating the X.
   this.x += this.arbitratyNumber * dt;
 };
 
 function getEnemyClean() {
   this.x = -90;
-  //so I get a random value between the max and min value.
+  //I get a random value between the max and min value.
   this.arbitratyNumber = Math.random() * (400 - 100) + 100;
 }
 
+//Takes the player to the origin point.
 function getPlayerClean() {
   player.x = 200;
   player.y = 380;
 }
 
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
-  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-
+// Player class, son of Character.
 var Player = function(xValue, yValue) {
-  this.sprite = "images/char-boy.png";
-  this.x = xValue;
-  this.y = yValue;
+  //By Inheritance, I'm using the Father constructor to initialize the values.
+  Character.call(this, xValue, yValue, 'images/char-boy.png');
 };
 
-Player.prototype.update = function(dt) {};
+//Here, I'm linking Enemy to his Father Character (same of extends in ES6);
+Player.prototype = Object.create(Character.prototype);
+//Here, I'm linking the Enemy's constructor with the very Enemy, this way his methods can be accessed.
+Player.prototype.constructor = Player;
 
-Player.prototype.render = function() {
-  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
-// This function is responsible to change the position to be rendered according to the key pressed. It also validates before changing.
-Player.prototype.handleInput = function(key) {
-  if (key == "up" && player.y > 0) {
-    player.y -= 80;
-  }
-  if (key == "right" && player.x < 400) {
-    player.x += 100;
-  }
-  if (key == "down" && player.y < 380) {
-    player.y += 80;
-  }
-  if (key == "left" && player.x > 0) {
-    player.x -= 100;
-  }
-
-  if (player.y == -20) {
+//The Player Update method is responsible to check if the user has arrived to the destiny.
+Player.prototype.update = function() {
+  if (this.y == -20) {
     getPlayerClean();
+  }
+};
+
+// This function is responsible to change the position to be rendered according to the key pressed. 
+//It also validates before changing.
+Player.prototype.handleInput = function(key) {
+  if (key == "up" && this.y > 0) {
+    this.y -= 80;
+  }
+  if (key == "right" && this.x < 400) {
+    this.x += 100;
+  }
+  if (key == "down" && this.y < 380) {
+    this.y += 80;
+  }
+  if (key == "left" && this.x > 0) {
+    this.x -= 100;
   }
 };
 
