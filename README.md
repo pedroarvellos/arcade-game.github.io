@@ -1,6 +1,6 @@
 # arcade-game.github.io
 
-Arcade Game is a project developed by me during the Advanced Front-End Nano Degree course provided by Udacity. This project demonstrates good practices at HTML 5 Canvas and JavaScript. The pure concept of the "this" context, closures and prototype is nicely demonstrated in this project. 
+Arcade Game is a project developed by me during the Advanced Front-End Nano Degree course provided by Udacity. This project demonstrates good practices at HTML 5 Canvas and JavaScript. The pure concept of the "this" context, closures and prototype are nicely demonstrated in this project. 
 
 Access the Arcade Game: https://pedroarvellos.github.io/arcade-game.github.io/
 

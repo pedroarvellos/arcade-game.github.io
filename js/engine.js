@@ -79,7 +79,6 @@ var Engine = (function(global) {
      */
   function update(dt) {
     updateEntities(dt);
-    // checkCollisions();
   }
 
   /* This is called by the update function and loops through all of the
@@ -92,6 +91,8 @@ var Engine = (function(global) {
   function updateEntities(dt) {
     allEnemies.forEach(function(enemy) {
       enemy.update(dt);
+      //Every step each enemy takes, it's been checked if there's a collision with the player.
+      checkCollisions.call(enemy);
     });
     player.update();
   }
@@ -151,9 +152,11 @@ var Engine = (function(global) {
          * the render function you have defined.
          */
     allEnemies.forEach(function(enemy) {
+      // renderEntity.call(enemy);
       enemy.render();
     });
 
+    // renderEntity.call(player);
     player.render();
   }
 
@@ -183,4 +186,15 @@ var Engine = (function(global) {
      * from within their app.js files.
      */
   global.ctx = ctx;
+
+  function checkCollisions() {
+    //I'm checking if the bug is in a defined collision raius.
+    if (
+      player.x <= Math.round(this.x) + 75 &&
+      player.x >= Math.round(this.x) - 50 &&
+      this.y == player.y
+    ) {
+      getPlayerClean.call(player);
+    }
+  }
 })(this);
